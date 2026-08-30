@@ -432,11 +432,13 @@ function renderAll(){
 
 function renderFicha(){
   var f=CF(),h='';
-  h+='<div class="g4">';
+  h+='<div class="g3">';
   h+='<div><div class="ev-total">Projeto</div><div style="font-weight:700;color:var(--az);margin-top:3px">'+esc(f.nomeProjeto||'Jogando Juntos SE')+'</div></div>';
-  h+='<div><div class="ev-total">Financiador</div><div style="font-weight:700;color:var(--az);margin-top:3px">'+esc(f.financiador||'-')+'</div></div>';
+  h+='<div><div class="ev-total">Órgão / Financiador</div><div style="font-weight:700;color:var(--az);margin-top:3px">'+esc(f.financiador||'-')+'</div></div>';
   h+='<div><div class="ev-total">Instrumento</div><div style="font-weight:700;color:var(--az);margin-top:3px">'+esc(f.instrumento||'A PREENCHER')+'</div></div>';
-  h+='<div><div class="ev-total">Status da execução</div><div style="font-weight:700;color:var(--ci);margin-top:3px">'+statusProjeto()+'</div></div>';
+  h+='<div><div class="ev-total">Início da Vigência</div><div style="font-weight:700;color:var(--az);margin-top:3px">'+esc(f.inicioVigencia||'-')+'</div></div>';
+  h+='<div><div class="ev-total">Término da Vigência</div><div style="font-weight:700;color:var(--az);margin-top:3px">'+esc(f.terminoVigencia||'-')+'</div></div>';
+  h+='<div><div class="ev-total">Duração / Status</div><div style="font-weight:700;color:var(--ci);margin-top:3px">'+esc(f.duracao||'-')+' • '+statusProjeto()+'</div></div>';
   h+='</div>';
   document.getElementById('ficha-card').innerHTML=h;
 }
