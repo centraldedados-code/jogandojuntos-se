@@ -6,144 +6,249 @@
 <title>Jogando Juntos SE | SMPC</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+
 :root{
-  --az:#092040;--ci:#00B7D7;--am:#ECC203;
-  --cz:#EFF1F3;--es:#021738;--br:#FFFFFF;
-  --gv:#1A6B3C;--gvb:#EBF7EB;
-  --aw:#7A4F00;--awb:#FFF8E0;
-  --rd:#8B1A1A;--rdb:#FCE8E8;
-  --bd:#DDE4EE;
+  --az:#092040; --ci:#00B7D7; --am:#ECC203; --cz:#EFF1F3; --es:#021738; --br:#FFFFFF;
+  --gv:#1A6B3C; --gvb:#ebf7eb; --aw:#7A4F00; --awb:#fff8e0; --rd:#8B1A1A; --rdb:#fce8e8;
+  --bd:#dde4ee; --mut:#718096;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Open Sans',Arial,sans-serif;background:var(--cz);color:var(--es);min-height:100vh}
-h1,h2,h3,h4,button{font-family:'Montserrat',Arial,sans-serif}
+h1,h2,h3,h4{font-family:'Montserrat',Arial,sans-serif}
 
-/* LOGIN */
 #pwd{position:fixed;inset:0;z-index:9999;background:var(--az);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
 #pwd.off{display:none}
-.pbox{background:var(--br);border-radius:16px;padding:36px 40px;max-width:420px;width:100%;text-align:center}
-.plogo-main{height:58px;max-width:250px;object-fit:contain;display:block;margin:0 auto 22px}
-.pfoot-logo{height:56px;object-fit:contain;display:block;margin:28px auto 0}
-.psub{color:var(--am);font-size:11px;font-weight:700;letter-spacing:1.6px;margin-bottom:6px;text-transform:uppercase;font-family:'Montserrat',sans-serif;line-height:1.4}
-.phint{font-size:12px;color:#8a939d;margin-bottom:20px}
-.pin{width:100%;padding:12px 16px;border:2px solid var(--bd);border-radius:10px;font-size:15px;letter-spacing:2px;font-family:'Open Sans',sans-serif;color:var(--az);outline:none;transition:border-color .2s;margin-bottom:12px}
+.pbox{background:var(--br);border-radius:16px;padding:36px 40px;max-width:430px;width:100%;text-align:center}
+.plogo-main{height:58px;max-width:270px;object-fit:contain;display:block;margin:0 auto 22px}
+.pfoot-logo{height:auto;max-height:70px;max-width:520px;width:min(92vw,520px);object-fit:contain;display:block;margin:28px auto 0}
+.psub{color:var(--am);font-size:11px;font-weight:700;letter-spacing:1.3px;margin-bottom:8px;text-transform:uppercase;font-family:'Montserrat',sans-serif;line-height:1.45}
+.phint{font-size:12px;color:#8390a0;margin-bottom:20px}
+.pin{width:100%;padding:12px 16px;border:2px solid var(--bd);border-radius:10px;font-size:15px;letter-spacing:2px;color:var(--az);outline:none;margin-bottom:12px}
 .pin:focus{border-color:var(--ci)}
-.pbtn{width:100%;padding:13px;background:var(--az);color:var(--am);border:none;border-radius:10px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s}
+.pbtn{width:100%;padding:13px;background:var(--az);color:var(--am);border:none;border-radius:10px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;font-family:'Montserrat',sans-serif}
 .pbtn:hover{background:var(--ci);color:var(--br)}
 .perr{color:#cc0000;font-size:12px;margin-top:8px;min-height:18px}
 
-/* LOADING */
-#ld{display:none;position:fixed;inset:0;z-index:500;background:var(--cz);align-items:center;justify-content:center;flex-direction:column;gap:16px}
-#ld.on{display:flex}
+#ld{display:flex;position:fixed;inset:0;z-index:500;background:var(--cz);align-items:center;justify-content:center;flex-direction:column;gap:16px}
+#ld.off{display:none}
 .spin{width:48px;height:48px;border:4px solid var(--ci);border-top-color:var(--am);border-radius:50%;animation:giro .8s linear infinite}
 @keyframes giro{to{transform:rotate(360deg)}}
 .ltxt{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--az);font-size:14px}
-
 #app{display:none}
 #app.on{display:block}
 
-.hdr{background:var(--az);position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-.hdri{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;min-height:68px;padding:8px 24px;gap:16px}
-.brandwrap{display:flex;align-items:center;gap:14px}
-.hlogo{height:42px;object-fit:contain;background:var(--br);border-radius:8px;padding:5px 12px}
-.hdiv{width:1px;height:32px;background:rgba(255,255,255,.2)}
-.htit{color:var(--am);font-size:15px;font-weight:700;letter-spacing:.5px}
-.hsub{color:rgba(255,255,255,.55);font-size:10.5px;margin-top:2px}
+.hdr{background:var(--az);position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdri{max-width:1220px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;min-height:68px;padding:8px 24px;gap:18px}
+.brandwrap{display:flex;align-items:center;gap:14px;min-width:0}
+.hlogo{height:43px;max-width:260px;object-fit:contain;background:var(--br);border-radius:8px;padding:5px 10px}
+.hdiv{width:1px;height:34px;background:rgba(255,255,255,.2)}
+.htit{color:var(--am);font-size:15px;font-weight:700;letter-spacing:.5px;font-family:'Montserrat',sans-serif}
+.hsub{color:rgba(255,255,255,.62);font-size:10.5px;margin-top:2px}
 .hnav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
-.nbtn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.62);font-size:10.5px;font-weight:700;letter-spacing:.45px;padding:8px 10px;border-radius:8px;text-transform:uppercase;transition:all .2s}
+.nbtn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.65);font-size:10.5px;font-weight:700;letter-spacing:.45px;padding:8px 11px;border-radius:8px;text-transform:uppercase;font-family:'Montserrat',sans-serif}
 .nbtn:hover{color:var(--br);background:rgba(255,255,255,.1)}
 .nbtn.on{color:var(--am);background:rgba(236,194,3,.15)}
+.diag-top{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:12px}
+.diag-main{background:linear-gradient(135deg,#092040 0%,#0d3768 100%);border-radius:12px;padding:18px 20px;color:#fff}
+.diag-main .n{font:700 34px Montserrat;color:var(--am)}
+.diag-main .t{font:700 12px Montserrat;margin-top:2px}
+.diag-main .s{font-size:10.5px;color:rgba(255,255,255,.68);margin-top:6px;line-height:1.45}
+.diag-card{background:#fff;border:1.5px solid var(--bd);border-radius:12px;padding:16px 18px}
+.diag-card .n{font:700 22px Montserrat;color:var(--ci)}
+.diag-card .t{font:700 10.5px Montserrat;color:var(--az);margin-top:3px;text-transform:uppercase;letter-spacing:.35px}
+.diag-card .s{font-size:10.5px;color:#718096;margin-top:6px;line-height:1.45}
+.diag-portal{display:inline-flex;margin-top:10px;background:var(--am);color:var(--az);text-decoration:none;font:700 10px Montserrat;padding:8px 11px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px}
+.diag-note{font-size:10.5px;color:#657180;line-height:1.55;margin-top:10px}
+@media(max-width:950px){.diag-top{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.diag-top{grid-template-columns:1fr}}
 
-.wrap{max-width:1240px;margin:0 auto;padding:24px 16px}
+.wrap{max-width:1220px;margin:0 auto;padding:24px 16px}
 .vw{display:none}
 .vw.on{display:block}
-.st{font-size:11px;font-weight:700;color:var(--az);text-transform:uppercase;letter-spacing:1.5px;margin:22px 0 12px;padding-left:10px;border-left:4px solid var(--ci)}
+.st{font-size:11px;font-weight:700;color:var(--az);text-transform:uppercase;letter-spacing:1.4px;margin:22px 0 12px;padding-left:10px;border-left:4px solid var(--ci);font-family:'Montserrat',sans-serif}
 
+.card{background:var(--br);border:1.5px solid var(--bd);border-radius:12px;padding:16px 18px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{background:var(--br);border:1.5px solid var(--bd);border-radius:12px;padding:16px 18px}
+
 .kpi{background:var(--az);border-radius:12px;padding:18px;text-align:center}
 .knum{color:var(--am);font-size:26px;font-weight:700;font-family:'Montserrat',sans-serif}
 .klab{color:rgba(255,255,255,.68);font-size:11px;margin-top:4px}
 
 .sbw{background:#dde4ee;border-radius:999px;overflow:hidden}
-.sb{border-radius:999px;transition:width 1s ease;height:100%;background:var(--ci)}
-.shi{background:var(--gv)}.smid{background:var(--ci)}.slow{background:#c9940a}.scrit{background:#cc2222}
+.sb{border-radius:999px;transition:width 1s ease;height:100%}
+.shi{background:var(--gv)} .smid{background:var(--ci)} .slow{background:#c9940a} .scrit{background:#cc2222}
 
-.badge{display:inline-block;font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.35px}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.35px;font-family:'Montserrat',sans-serif}
+.bR{background:var(--gvb);color:var(--gv)}
+.bP{background:var(--awb);color:var(--aw)}
+.bC{background:var(--rdb);color:var(--rd)}
+.bA{background:#e8f0f8;color:var(--az)}
+.bE{background:#fff8e0;color:#7A4F00}
+.bN{background:#edf2f7;color:#5b6572}
+
+.tcard{background:var(--br);border:1.5px solid var(--bd);border-radius:14px;padding:20px;cursor:pointer;transition:.18s}
+.tcard:hover{border-color:var(--ci);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,183,215,.13)}
+.tnome{font-size:13px;font-weight:700;color:var(--az);margin-bottom:10px;font-family:'Montserrat',sans-serif}
+.tsc{font-size:30px;font-weight:700;color:var(--ci);font-family:'Montserrat',sans-serif}
+.tmeta{font-size:11px;color:#666;margin-top:2px}
+
+.oscard{background:var(--br);border:1.5px solid var(--bd);border-radius:10px;padding:14px}
+.oscard.stC{border-left:4px solid var(--gv)}
+.oscard.stI{border-left:4px solid #c9940a}
+.oscard.stP{border-left:4px solid #bbb}
+.oscard.stA{border-left:4px solid #cc2222}
+.osnome{font-size:12px;font-weight:700;color:var(--az);font-family:'Montserrat',sans-serif}
+.osfase{font-size:10.5px;color:#77808b;margin:7px 0 0;line-height:1.55}
+
+.tblwrap{background:#fff;border:1.5px solid var(--bd);border-radius:12px;overflow:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{background:var(--az);color:var(--br);padding:10px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.45px;font-weight:700;font-family:'Montserrat',sans-serif;white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid #eee;vertical-align:middle}
+.tbl tr:hover td{background:#f8fafc}
+
+.ficha-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 26px}
+.ficha-rot{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8592A3;margin-bottom:4px}
+.ficha-val{font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:var(--az);overflow-wrap:anywhere}
+
+.back{background:none;border:2px solid var(--az);color:var(--az);font-size:11px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer;text-transform:uppercase;margin-bottom:20px;font-family:'Montserrat',sans-serif}
+.back:hover{background:var(--az);color:#fff}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.fbtn{background:#fff;border:1.5px solid var(--bd);color:var(--az);font-size:10px;font-weight:700;padding:7px 13px;border-radius:20px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif}
+.fbtn.on,.fbtn:hover{background:var(--az);color:var(--am);border-color:var(--az)}
+.search{flex:1;min-width:220px;padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;font:12px 'Open Sans',sans-serif;outline:none}
+.search:focus{border-color:var(--ci)}
+
+.notice{background:#e0f7fb;border:1px solid #b8ecf5;border-radius:10px;padding:13px 16px;font-size:12px;color:#176377;line-height:1.55}
+
+.foot{background:var(--az);border-radius:12px;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;margin-top:32px;flex-wrap:wrap;gap:10px}
+.ftxt{color:rgba(255,255,255,.5);font-size:11px}
+.fbadge{background:var(--am);color:var(--az);font-size:10.5px;font-weight:700;padding:5px 12px;border-radius:20px;font-family:'Montserrat',sans-serif}
+
+
+.folder-terr{margin-bottom:18px;background:#fff;border:1.5px solid var(--bd);border-radius:12px;overflow:hidden}
+.folder-head{background:var(--az);color:#fff;padding:12px 16px;font:700 12px Montserrat;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.folder-head span{color:var(--am);font-size:10px}
+.comp-wrap{padding:14px}
+.comp-title{font:700 11px Montserrat;color:var(--az);margin:10px 0 8px;padding-left:8px;border-left:3px solid var(--ci)}
+.course-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.course-folder{border:1px solid #e2e7ed;border-radius:9px;padding:11px;background:#fbfcfd}
+.course-folder h4{font-size:10.5px;color:var(--az);margin-bottom:7px;line-height:1.4}
+.evline{font-size:9.5px;color:#68717d;line-height:1.55}
+.evline strong{color:var(--az)}
+
+.alerta-doc{background:#fff;border:2px solid #ECC203;border-left:6px solid #ECC203;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.alerta-doc.ok{border-color:#cfe8d7;border-left-color:#1A6B3C;background:#f6fbf7}
+.alerta-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.alerta-title{font:700 13px Montserrat;color:#092040;text-transform:uppercase;letter-spacing:.5px}
+.alerta-count{font:700 24px Montserrat;color:#8B5A00}
+.alerta-help{font-size:11px;color:#657180;line-height:1.55;margin-top:4px}
+.alerta-list{margin-top:12px;display:grid;gap:8px}
+.alerta-item{background:#fffaf0;border:1px solid #f0dfaa;border-radius:9px;padding:10px 12px}
+.alerta-item strong{font:700 11px Montserrat;color:#092040}
+.alerta-meta{font-size:10.5px;color:#6f7884;margin-top:3px;line-height:1.45}
+.alerta-regra{margin-top:10px;font-size:10.5px;color:#6a4b00;font-weight:600}
+
+
+.bAnd{background:#e0f7fb;color:#176377}
+.bInst{background:#e8f0f8;color:#092040}
+.bProg{background:#edf2f7;color:#5b6572}
+.bNA{background:#f1f3f5;color:#6b7280}
+.oscard.stAnd{border-left:4px solid var(--ci)}
+.oscard.stInst{border-left:4px solid var(--az)}
+.oscard.stProg{border-left:4px solid #a0aec0}
+.oscard.stNA{border-left:4px solid #cbd5e0}
+
+.evid-hero{background:linear-gradient(135deg,#092040 0%,#0c315f 100%);border-radius:14px;padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;color:#fff;box-shadow:0 8px 24px rgba(9,32,64,.14)}
+.evid-hero-title{font:700 18px Montserrat;color:var(--am);letter-spacing:.7px}
+.evid-hero-sub{font-size:11.5px;color:rgba(255,255,255,.72);margin-top:5px;line-height:1.5}
+.evid-hero-badge{background:var(--am);color:var(--az);font:700 10px Montserrat;padding:7px 12px;border-radius:999px;white-space:nowrap}
+.evid-kpis{margin-top:12px}
+.evid-kpi{background:#fff;border:1.5px solid var(--bd);border-radius:12px;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.evid-kpi .num{font:700 25px Montserrat;color:var(--ci)}
+.evid-kpi .lab{font-size:10.5px;color:#6b7480;line-height:1.35;text-align:right}
+.ev-select{flex:0 1 220px;min-width:180px;background:#fff}
+.drive-terr{background:#fff;border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.drive-terr-head{background:var(--az);color:#fff;padding:14px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.drive-terr-title{font:700 13px Montserrat}
+.drive-terr-meta{font-size:10px;color:var(--am);font-weight:700}
+.drive-comp{padding:14px 16px;border-top:1px solid #edf0f4}
+.drive-comp:first-child{border-top:none}
+.drive-comp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.drive-comp-title{font:700 11px Montserrat;color:var(--az);border-left:3px solid var(--ci);padding-left:8px}
+.drive-comp-btn{border:1.5px solid var(--az);background:#fff;color:var(--az);border-radius:8px;padding:7px 10px;font:700 9px Montserrat;text-decoration:none;text-transform:uppercase;letter-spacing:.25px}
+.drive-comp-btn:hover{background:var(--az);color:var(--am)}
+.drive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.drive-card{border:1px solid #e0e6ee;border-left:4px solid var(--ci);border-radius:11px;padding:13px;background:#fbfcfd;display:flex;flex-direction:column;min-height:185px}
+.drive-card.photos{border-left-color:var(--am);background:linear-gradient(180deg,#fffdf3 0%,#fff 100%)}
+.drive-card-title{font:700 11px Montserrat;color:var(--az);line-height:1.45;margin-bottom:7px}
+.drive-card-meta{font-size:10px;color:#737d88;line-height:1.5;margin-bottom:9px}
+.drive-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.evchip{font:700 9px Montserrat;border-radius:999px;padding:4px 7px;background:#edf2f7;color:#53606f}
+.evchip.photo{background:#fff5bf;color:#765d00}
+.evchip.doc{background:#e0f7fb;color:#176377}
+.drive-actions{display:grid;grid-template-columns:1fr;gap:6px;margin-top:auto}
+.drive-open{display:block;text-align:center;text-decoration:none;background:var(--az);color:var(--am);border-radius:8px;padding:8px 9px;font:700 9.5px Montserrat;text-transform:uppercase;letter-spacing:.3px}
+.drive-open.secondary{background:#e8f7fb;color:#0f6072;border:1px solid #a8deea}
+.drive-open:hover{filter:brightness(1.08)}
+.drive-nolink{font-size:9.5px;color:#8a939e;text-align:center;padding:7px;border:1px dashed #cfd6df;border-radius:8px}
+@media(max-width:950px){.drive-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.drive-grid{grid-template-columns:1fr}.evid-hero{align-items:flex-start}.evid-hero-badge{display:none}}
+
+@media(max-width:950px){.course-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.course-grid{grid-template-columns:1fr}}
+
+@media(max-width:950px){.g4,.g3{grid-template-columns:repeat(2,1fr)}.hnav{display:none}}
+@media(max-width:600px){.g4,.g3,.g2{grid-template-columns:1fr}.hdri{padding:8px 14px}.hlogo{height:38px;max-width:145px}.hsub{display:none}.wrap{padding:18px 12px}}
+
+/* AJUSTES ESPECÍFICOS — JOGANDO JUNTOS SE */
+button{font-family:'Montserrat',Arial,sans-serif}
+.ev-counts{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.ev-chip{font-size:9px;font-weight:700;padding:4px 7px;border-radius:14px;background:#edf2f7;color:#52606d}
+.ev-chip.has{background:var(--gvb);color:var(--gv)}
+.ev-chip.miss{background:var(--awb);color:var(--aw)}
+.ev-total{font-size:9.5px;color:#707b87;margin-top:6px}
+.ev-missing{font-size:9.5px;color:#805d00;margin-top:5px;font-weight:700;line-height:1.5}
+.turma-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.turma-folder{border:1px solid #e2e7ed;border-radius:9px;padding:11px;background:#fbfcfd}
+.turma-folder h4{font-size:10.5px;color:var(--az);margin-bottom:7px;line-height:1.4}
+.fbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
 .bCo{background:var(--gvb);color:var(--gv)}
 .bIn{background:var(--awb);color:var(--aw)}
 .bPe{background:#f0f0f0;color:#555}
 .bDu{background:#ffe8cc;color:#8B4A00}
 .bEr{background:var(--rdb);color:var(--rd)}
 .bAn{background:#e0f7fb;color:#006080}
-
-.notice{background:#eaf9fc;border:1px solid #bdebf4;border-radius:10px;padding:13px 16px;color:#235d69;font-size:11px;line-height:1.55}
-
-.tcard{background:var(--br);border:1.5px solid var(--bd);border-radius:14px;padding:18px;cursor:pointer;transition:.18s}
-.tcard:hover{border-color:var(--ci);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,183,215,.14)}
-.tnome{font-size:13px;font-weight:700;color:var(--az);margin-bottom:8px;font-family:'Montserrat',sans-serif}
-.tsc{font-size:30px;font-weight:700;color:var(--ci);font-family:'Montserrat',sans-serif}
-.tmeta{font-size:10.5px;color:#697480;margin-top:3px}
+.oscard.stCo{border-left:4px solid var(--gv)}
+.oscard.stIn{border-left:4px solid #c9940a}
+.oscard.stPe{border-left:4px solid #aaa}
+.oscard.stDu{border-left:4px solid #E07B00}
+.oscard.stEr{border-left:4px solid #cc2222}
 .tlink{color:var(--ci);font-size:10.5px;font-weight:700;margin-top:11px}
-
-.oscard{background:var(--br);border:1.5px solid var(--bd);border-radius:10px;padding:14px}
-.oscard.stCo{border-left:4px solid var(--gv)} .oscard.stIn{border-left:4px solid #c9940a}
-.oscard.stPe{border-left:4px solid #aaa} .oscard.stDu{border-left:4px solid #E07B00} .oscard.stEr{border-left:4px solid #cc2222}
-.osnome{font-size:11.5px;font-weight:700;color:var(--az);font-family:'Montserrat',sans-serif}
-.osfase{font-size:10px;color:#7a8490;margin:4px 0 8px;line-height:1.4}
-
-.ev-counts{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.ev-chip{font-size:9px;font-weight:700;padding:4px 7px;border-radius:14px;background:#edf2f7;color:#52606d}
-.ev-chip.has{background:var(--gvb);color:var(--gv)}
-.ev-chip.miss{background:var(--awb);color:var(--aw)}
-.ev-total{font-size:9.5px;color:#707b87;margin-top:6px}
-.ev-missing{font-size:9.5px;color:#805d00;margin-top:5px;font-weight:700}
-
 .alerta-doc{background:#fff;border:2px solid var(--am);border-left:6px solid var(--am);border-radius:12px;padding:16px 18px;margin-bottom:14px}
 .alerta-doc.ok{border-color:#cfe8d7;border-left-color:var(--gv);background:#f6fbf7}
 .alerta-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.alerta-title{font:700 12.5px Montserrat;color:var(--az);text-transform:uppercase;letter-spacing:.45px}
-.alerta-count{font:700 25px Montserrat;color:var(--aw)}
-.alerta-help{font-size:10.5px;color:#657180;line-height:1.5;margin-top:4px}
+.alerta-title{font:700 13px Montserrat;color:var(--az);text-transform:uppercase;letter-spacing:.5px}
+.alerta-count{font:700 24px Montserrat;color:#8B5A00}
+.alerta-help{font-size:11px;color:#657180;line-height:1.55;margin-top:4px}
 .alerta-list{margin-top:12px;display:grid;gap:8px}
 .alerta-item{background:#fffaf0;border:1px solid #f0dfaa;border-radius:9px;padding:10px 12px}
-.alerta-item strong{font:700 10.5px Montserrat;color:var(--az)}
-.alerta-regra{margin-top:10px;font-size:10px;color:#6a4b00;font-weight:600;line-height:1.5}
+.alerta-item strong{font:700 11px Montserrat;color:var(--az)}
+.alerta-meta{font-size:10.5px;color:#6f7884;margin-top:3px;line-height:1.45}
+.alerta-regra{margin-top:10px;font-size:10.5px;color:#6a4b00;font-weight:600;line-height:1.5}
+.drive-card.pending{border-left-color:#c9940a;background:#fffaf0}
+.drive-card.pending .drive-card-meta{color:#7a5a00}
+.drive-alert{font-size:10px;color:#7a5200;background:#fff7dd;border:1px solid #efd993;border-radius:8px;padding:8px 9px;line-height:1.45;margin-bottom:8px;font-weight:600}
+.drive-open.photo{background:var(--az);color:var(--am)}
+.drive-open.video{background:#e8f7fb;color:#0f6072;border:1px solid #a8deea}
+.evid-photo-num{font-weight:700;color:#7a5d00}
+@media(max-width:950px){.turma-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.turma-grid{grid-template-columns:1fr}}
 
-.tblwrap{background:var(--br);border:1.5px solid var(--bd);border-radius:12px;overflow:auto}
-.tbl{width:100%;border-collapse:collapse;font-size:11px}
-.tbl th{background:var(--az);color:var(--br);padding:10px 11px;text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;font-weight:700;font-family:'Open Sans',sans-serif;white-space:nowrap}
-.tbl td{padding:10px 11px;border-bottom:1px solid #eee;vertical-align:middle}
-.tbl tr:hover td{background:#f8fafc}
-
-.fbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
-.fbtn{background:var(--br);border:1.5px solid var(--bd);color:var(--az);font-size:9.5px;font-weight:700;padding:6px 12px;border-radius:20px;cursor:pointer}
-.fbtn.on,.fbtn:hover{background:var(--az);color:var(--am);border-color:var(--az)}
-.search{flex:1;min-width:210px;padding:8px 12px;border:1.5px solid var(--bd);border-radius:20px;font-family:'Open Sans';outline:none}
-.search:focus{border-color:var(--ci)}
-
-.back{background:none;border:2px solid var(--az);color:var(--az);font-size:10px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;text-transform:uppercase;margin-bottom:18px}
-.back:hover{background:var(--az);color:var(--br)}
-
-/* estrutura */
-.folder-terr{margin-bottom:18px;background:#fff;border:1.5px solid var(--bd);border-radius:12px;overflow:hidden}
-.folder-head{background:var(--az);color:#fff;padding:12px 16px;font:700 12px Montserrat;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.folder-head span{color:var(--am);font-size:10px}
-.comp-wrap{padding:14px}
-.turma-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.turma-folder{border:1px solid #e2e7ed;border-radius:9px;padding:11px;background:#fbfcfd}
-.turma-folder h4{font-size:10.5px;color:var(--az);margin-bottom:7px;line-height:1.4}
-.evline{font-size:9.5px;color:#68717d;line-height:1.55}
-.evline strong{color:var(--az)}
-
-.foot{background:var(--az);border-radius:12px;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;margin-top:32px;flex-wrap:wrap;gap:10px}
-.ftxt{color:rgba(255,255,255,.5);font-size:10.5px;line-height:1.45}
-.fbadge{background:var(--am);color:var(--az);font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:20px;font-family:'Montserrat',sans-serif}
-
-@media(max-width:950px){.g4,.g3{grid-template-columns:repeat(2,1fr)}.turma-grid{grid-template-columns:repeat(2,1fr)}.hnav{display:none}}
-@media(max-width:600px){.g4,.g3,.g2,.turma-grid{grid-template-columns:1fr}.hdri{padding:8px 14px}.hlogo{height:38px;max-width:145px}.hsub{display:none}.wrap{padding:18px 12px}}
+/* Compatibilidade com o carregamento do índice JJSE */
+#ld{display:none} #ld.on{display:flex}
 </style>
 </head>
 <body>
@@ -177,6 +282,7 @@ h1,h2,h3,h4,button{font-family:'Montserrat',Arial,sans-serif}
       <button class="nbtn on" onclick="goV('dashboard',this)">Dashboard</button>
       <button class="nbtn" onclick="goV('territorios',this)">Territórios</button>
       <button class="nbtn" onclick="goV('atividades',this)">Atividades</button>
+      <button class="nbtn" onclick="goV('evidenciasdrive',this)">Evidências Drive</button>
       <button class="nbtn" onclick="goV('estrutura',this)">Estrutura</button>
       <button class="nbtn" onclick="goV('metas',this)">Metas</button>
     </nav>
@@ -188,7 +294,33 @@ h1,h2,h3,h4,button{font-family:'Montserrat',Arial,sans-serif}
     <div class="st">Ficha do Projeto</div>
     <div class="card" id="ficha-card"></div>
 
-    <div class="st">Alertas Documentais</div>
+    <div class="st">Operação e Evidências</div>
+    <div class="diag-top">
+      <div class="diag-main">
+        <div class="n" id="diag-turmas">--</div>
+        <div class="t">Turmas monitoradas</div>
+        <div class="s">Acompanhamento das 24 turmas do Jogando Juntos SE, distribuídas entre Nossa Senhora do Socorro e São Cristóvão.</div>
+      </div>
+      <div class="diag-card">
+        <div class="n" id="diag-com-evidencia">--</div>
+        <div class="t">Turmas com evidência</div>
+        <div class="s">Turmas que já possuem algum registro fotográfico, audiovisual ou documental localizado pelo SMPC.</div>
+      </div>
+      <div class="diag-card">
+        <div class="n" id="diag-fotos">--</div>
+        <div class="t">Fotos nas turmas</div>
+        <div class="s">Quantidade de registros fotográficos organizados nas estruturas das turmas, com contagem auditada e exibida também na área Estrutura.</div>
+      </div>
+      <div class="diag-card">
+        <div class="n">SMPC</div>
+        <div class="t">Envio de evidências</div>
+        <div class="s">Acesso operacional para os responsáveis dos núcleos enviarem e acompanharem as comprovações do projeto.</div>
+        <a class="diag-portal" href="https://script.google.com/macros/s/AKfycbywEDgZHLvrWoq4nWOlhnpx79Q0Q_1Pk24RHn8r043bsImmRZPdOkSW1yCZ6CDIDACX5g/exec" target="_blank" rel="noopener noreferrer">Abrir Portal do Produtor</a>
+      </div>
+    </div>
+    <div class="diag-note">Os dados do painel continuam sendo atualizados pela API do SMPC. Para as pastas de evidência já auditadas nesta estrutura, o índice usa atalhos diretos para o local exato onde os arquivos estão organizados.</div>
+
+    <div class="st">Pendências Documentais Prioritárias</div>
     <div id="alertas-documentais"></div>
 
     <div class="st">Visão Geral</div>
@@ -248,10 +380,38 @@ h1,h2,h3,h4,button{font-family:'Montserrat',Arial,sans-serif}
     <div id="tbl-atividades"></div>
   </section>
 
+  <section class="vw" id="vw-evidenciasdrive">
+    <div class="st">Explorador de Evidências no Google Drive</div>
+    <div class="evid-hero">
+      <div>
+        <div class="evid-hero-title">TRILHA DE EVIDÊNCIAS</div>
+        <div class="evid-hero-sub">Acesso direto somente às pastas que possuem comprovação efetivamente localizada. Turmas sem evidência exibem alerta e não recebem botão de acesso.</div>
+      </div>
+      <div class="evid-hero-badge">SMPC · DRIVE</div>
+    </div>
+
+    <div class="g3 evid-kpis" id="drive-kpis"></div>
+
+    <div class="st">Filtros de Evidência</div>
+    <div class="filters">
+      <button class="fbtn on" data-evf="TODAS" onclick="setFiltroEvidencias('TODAS',this)">Todas as turmas</button>
+      <button class="fbtn" data-evf="FOTOS" onclick="setFiltroEvidencias('FOTOS',this)">Com fotos</button>
+      <button class="fbtn" data-evf="VIDEOS" onclick="setFiltroEvidencias('VIDEOS',this)">Com vídeos</button>
+      <button class="fbtn" data-evf="PENDENCIAS" onclick="setFiltroEvidencias('PENDENCIAS',this)">Sem evidência</button>
+      <select id="ev-territorio" class="search ev-select" onchange="renderEvidenciasDrive()"><option value="">Todos os territórios</option></select>
+      <input id="ev-busca" class="search" placeholder="Buscar turma, modalidade ou território..." oninput="renderEvidenciasDrive()">
+    </div>
+
+    <div class="notice" style="margin-bottom:14px">
+      Os botões <strong>ABRIR FOTOS</strong> e <strong>ABRIR VÍDEOS</strong> aparecem somente quando existe evidência auditada naquela pasta. Quando nenhum arquivo foi localizado, o cartão mostra <strong>ALERTA DE PENDÊNCIA</strong> e nenhum link é liberado.
+    </div>
+    <div id="drive-evidencias-content"></div>
+  </section>
+
   <section class="vw" id="vw-estrutura">
     <div class="st">Estrutura de Evidências</div>
     <div class="notice" style="margin-bottom:14px">
-      Visualização segura da organização documental do projeto. A estrutura é apresentada sem links internos do Google Drive.
+      Visualização da organização documental por turma, com a quantidade real localizada em cada grupo de evidência. Os links de acesso ficam concentrados na área <strong>Evidências Drive</strong>.
     </div>
     <div id="estrutura-content"></div>
   </section>
@@ -264,7 +424,7 @@ h1,h2,h3,h4,button{font-family:'Montserrat',Arial,sans-serif}
 
   <div class="foot">
     <div class="ftxt" id="foot-txt">Jogando Juntos SE — Instituto BR Arte × Ministério do Esporte<br><span id="ultimaAtualizacaoPainel">Atualização automática ativa</span></div>
-    <div class="fbadge">SMPC</div>
+    <div class="fbadge">Sistema de Monitoramento de Prestação de Contas — SMPC</div>
   </div>
 </main>
 </div>
@@ -272,9 +432,46 @@ h1,h2,h3,h4,button{font-family:'Montserrat',Arial,sans-serif}
 <script>
 var SENHA = 'Brarte@2026';
 var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3_kZINHFZhUk8w7gDuy_zJVf6PhKpTn-RRB49R7msPgimOPye3g0I0v3xUsK1Thx4ng/exec';
+var PORTAL_PRODUTOR_URL = 'https://script.google.com/macros/s/AKfycbywEDgZHLvrWoq4nWOlhnpx79Q0Q_1Pk24RHn8r043bsImmRZPdOkSW1yCZ6CDIDACX5g/exec';
 var D = null;
 var TERR = [];
 var FILTRO_STATUS = 'Todos';
+var FILTRO_EVIDENCIAS = 'TODAS';
+
+/*
+ * Pastas de evidência confirmadas por auditoria no Google Drive em 03/09/2026.
+ * O índice só libera botão quando existe comprovação localizada.
+ */
+var EVIDENCIAS_AUDITADAS = {
+  'T1-04_FUTEBOL': {
+    fotos: 16,
+    linkFotos: 'https://drive.google.com/drive/folders/1JXK8hYfQqd6CU4RrVbd9Sa-DIWuFMC6C'
+  },
+  'T1-09_GINASTICA': {
+    fotos: 1,
+    audiovisual: 1,
+    linkFotos: 'https://drive.google.com/drive/folders/1vpg2naABm3_EYfhkOoE5cC5ehrlr3B4F',
+    linkVideos: 'https://drive.google.com/drive/folders/1qH6GjhRxRnJ_XXgos4HSOlsWyVYH9eZA'
+  },
+  'T1-11_LUTA': {
+    fotos: 25,
+    audiovisual: 5,
+    linkFotos: 'https://drive.google.com/drive/folders/1Ozs-Y2h8DYA-1KYFWyBCz3TvzEQ2SNz6',
+    linkVideos: 'https://drive.google.com/drive/folders/1ZcwuzucGk2tZvNOQs1t03AbwcW7Uh1rF'
+  },
+  'T2-04_FUTEBOL': {
+    fotos: 6,
+    linkFotos: 'https://drive.google.com/drive/folders/16BgE4-h7t4Mm75vXiHQkRv0MWjmmA99l'
+  },
+  'T2-11_LUTA': {
+    fotos: 11,
+    linkFotos: 'https://drive.google.com/drive/folders/1F4U4zhcIZv4iFJb4Eh_7gHM2x3X8Fy3y'
+  },
+  'T2-12_GINASTICA': {
+    fotos: 3,
+    linkFotos: 'https://drive.google.com/drive/folders/1lzGLJgSypQCSYTuSBela7YrJN2SIheC1'
+  }
+};
 
 function esc(v){
   return String(v==null?'':v)
@@ -355,7 +552,23 @@ function CF(){return (D&&D.config)?D.config:{}}
 
 function atividadesTerritorio(nome){return AT().filter(function(r){return r.territorio===nome})}
 
-function evidencias(r){return (r&&r.evidencias)?r.evidencias:{}}
+function evidenciaAuditada(r){
+  return (r && EVIDENCIAS_AUDITADAS[String(r.turma||'')]) ? EVIDENCIAS_AUDITADAS[String(r.turma||'')] : {};
+}
+function evidencias(r){
+  var src=(r&&r.evidencias)?r.evidencias:{};
+  var a=evidenciaAuditada(r);
+  var e={
+    fichaInscricao:Number(src.fichaInscricao||0),
+    diarioClasse:Number(src.diarioClasse||0),
+    folhaPonto:Number(src.folhaPonto||0),
+    fotos:Math.max(Number(src.fotos||0),Number(a.fotos||0)),
+    audiovisual:Math.max(Number(src.audiovisual||0),Number(a.audiovisual||0)),
+    fotosDuplicadas:Number(src.fotosDuplicadas||0)
+  };
+  e.totalArquivos=e.fichaInscricao+e.diarioClasse+e.folhaPonto+e.fotos+e.audiovisual;
+  return e;
+}
 function temEvidencia(r){
   var e=evidencias(r);
   return Number(e.fotos||0)>0||Number(e.folhaPonto||0)>0||Number(e.fichaInscricao||0)>0||
@@ -425,6 +638,7 @@ function renderAll(){
   renderDash();
   renderListaT();
   renderAtividades();
+  renderEvidenciasDrive();
   renderEstrutura();
   renderMetas('Todos');
   renderFooter();
@@ -444,21 +658,36 @@ function renderFicha(){
 }
 
 function renderAlertasDocumentais(){
-  var pend=AT().filter(function(r){return temEvidencia(r)&&faltantes(r).length>0});
+  var rows=AT();
+  var semEvidencia=rows.filter(function(r){return !temEvidencia(r)});
+  var incompletas=rows.filter(function(r){return faltantes(r).length>0});
   var containers=[document.getElementById('alertas-documentais'),document.getElementById('alertas-atividades')];
   var h='';
-  if(!pend.length){
-    h='<div class="alerta-doc ok"><div class="alerta-title">Nenhuma composição documental incompleta identificada</div>'+
-      '<div class="alerta-help">Entre as turmas que já possuem evidências, nenhuma apresenta grupo documental zerado.</div></div>';
+
+  if(!incompletas.length){
+    h='<div class="alerta-doc ok"><div class="alerta-top"><div><div class="alerta-title">✓ Composição documental completa</div>'+
+      '<div class="alerta-help">Todas as turmas possuem os grupos de evidência previstos na estrutura do SMPC.</div></div>'+
+      '<div class="alerta-count">0</div></div></div>';
   }else{
-    h='<div class="alerta-doc"><div class="alerta-top"><div><div class="alerta-title">⚠ Alertas de composição documental</div>'+
-      '<div class="alerta-help">Turmas com pelo menos uma evidência e um ou mais grupos documentais ainda sem arquivo.</div></div>'+
-      '<div class="alerta-count">'+pend.length+'</div></div><div class="alerta-list">';
-    pend.forEach(function(r){
+    var parciais=incompletas.filter(temEvidencia);
+    h='<div class="alerta-doc"><div class="alerta-top"><div><div class="alerta-title">⚠ Pendências documentais do Jogando Juntos SE</div>'+
+      '<div class="alerta-help"><strong>'+semEvidencia.length+'</strong> turma(s) ainda não possuem qualquer evidência. '+
+      '<strong>'+parciais.length+'</strong> turma(s) já possuem arquivos, mas continuam com grupos documentais faltantes — especialmente ficha de inscrição, diário de classe e folha de ponto/presença.</div></div>'+
+      '<div class="alerta-count">'+incompletas.length+'</div></div><div class="alerta-list">';
+
+    parciais.forEach(function(r){
+      var e=evidencias(r);
       h+='<div class="alerta-item"><strong>'+esc(r.territorio||'-')+' • '+esc(r.turma||'-')+' • '+esc(r.modalidade||'-')+'</strong>'+
-        resumoEv(r)+'</div>';
+        '<div class="alerta-meta">Fotos: <strong>'+e.fotos+'</strong> • Vídeos: <strong>'+e.audiovisual+'</strong> • Folha de ponto/presença: <strong>'+e.folhaPonto+'</strong></div>'+
+        '<div class="ev-missing">Faltando: '+esc(faltantes(r).join(' • '))+'</div></div>';
     });
-    h+='</div><div class="alerta-regra">O alerta é documental e não altera sozinho a regra técnica do Agente. O SMPC confirma existência e quantidade dos arquivos; assinatura, CPF, preenchimento e conteúdo exigem conferência documental.</div></div>';
+
+    if(semEvidencia.length){
+      h+='<div class="alerta-item"><strong>Turmas sem qualquer evidência localizada</strong>'+
+        '<div class="alerta-meta">'+semEvidencia.map(function(r){return esc((r.turma||'-')+' — '+(r.modalidade||'-')+' / '+(r.territorio||'-'));}).join('<br>')+'</div></div>';
+    }
+
+    h+='</div><div class="alerta-regra">Regra do índice: a ausência de folha de ponto, ficha de inscrição, diário, fotos ou audiovisual permanece visível como alerta. O botão de Drive só é exibido quando a pasta contém evidência efetivamente localizada.</div></div>';
   }
   containers.forEach(function(el){if(el)el.innerHTML=h});
 }
@@ -475,6 +704,12 @@ function renderDash(){
     kpi(rows.length,'Turmas Monitoradas')+
     kpi(completas,'Turmas Completas')+
     kpi(iniciadas,'Turmas com Evidência');
+
+  var totalFotos=rows.reduce(function(s,r){return s+Number(evidencias(r).fotos||0)},0);
+  var dt=document.getElementById('diag-turmas'), de=document.getElementById('diag-com-evidencia'), df=document.getElementById('diag-fotos');
+  if(dt)dt.textContent=rows.length;
+  if(de)de.textContent=iniciadas;
+  if(df)df.textContent=totalFotos;
 
   var sg=scG();
   document.getElementById('sc-txt').textContent=sg+'%';
@@ -560,20 +795,135 @@ function renderAtividades(){
   document.getElementById('tbl-atividades').innerHTML=h;
 }
 
+
+function setFiltroEvidencias(v,btn){
+  FILTRO_EVIDENCIAS=v;
+  document.querySelectorAll('[data-evf]').forEach(function(b){b.classList.remove('on')});
+  if(btn)btn.classList.add('on');
+  renderEvidenciasDrive();
+}
+
+function prepararFiltroTerritorioEvidencias(rows){
+  var st=document.getElementById('ev-territorio');
+  if(!st)return;
+  var atual=st.value, vals=[];
+  rows.forEach(function(r){if(r.territorio && vals.indexOf(r.territorio)===-1)vals.push(r.territorio)});
+  vals.sort();
+  st.innerHTML='<option value="">Todos os territórios</option>'+vals.map(function(v){return '<option value="'+esc(v)+'">'+esc(v)+'</option>'}).join('');
+  if(vals.indexOf(atual)!==-1)st.value=atual;
+}
+
+function linksEvidencia(r){
+  var a=evidenciaAuditada(r);
+  return {
+    fotos:String(a.linkFotos||''),
+    videos:String(a.linkVideos||'')
+  };
+}
+
+function renderEvidenciasDrive(){
+  var el=document.getElementById('drive-evidencias-content');
+  if(!el)return;
+  var base=AT();
+  prepararFiltroTerritorioEvidencias(base);
+
+  var terrSel=document.getElementById('ev-territorio')?document.getElementById('ev-territorio').value:'';
+  var busca=document.getElementById('ev-busca')?document.getElementById('ev-busca').value.toLowerCase().trim():'';
+
+  var rows=base.filter(function(r){
+    var e=evidencias(r);
+    if(terrSel && r.territorio!==terrSel)return false;
+    if(FILTRO_EVIDENCIAS==='FOTOS' && e.fotos<=0)return false;
+    if(FILTRO_EVIDENCIAS==='VIDEOS' && e.audiovisual<=0)return false;
+    if(FILTRO_EVIDENCIAS==='PENDENCIAS' && temEvidencia(r))return false;
+    if(busca){
+      var blob=((r.territorio||'')+' '+(r.turma||'')+' '+(r.modalidade||'')).toLowerCase();
+      if(blob.indexOf(busca)===-1)return false;
+    }
+    return true;
+  });
+
+  var totalFotos=base.reduce(function(s,r){return s+evidencias(r).fotos},0);
+  var totalVideos=base.reduce(function(s,r){return s+evidencias(r).audiovisual},0);
+  var comEv=base.filter(temEvidencia).length;
+  var k=document.getElementById('drive-kpis');
+  if(k){
+    k.innerHTML='<div class="evid-kpi"><div class="num">'+comEv+'</div><div class="lab">turma(s)<br>com evidência</div></div>'+
+      '<div class="evid-kpi"><div class="num">'+totalFotos+'</div><div class="lab">registro(s)<br>fotográfico(s)</div></div>'+
+      '<div class="evid-kpi"><div class="num">'+totalVideos+'</div><div class="lab">registro(s)<br>audiovisual(is)</div></div>';
+  }
+
+  if(!rows.length){
+    el.innerHTML='<div class="card" style="font-size:12px;color:#66717e">Nenhuma turma encontrada para os filtros selecionados.</div>';
+    return;
+  }
+
+  var porTerr={};
+  rows.forEach(function(r){
+    if(!porTerr[r.territorio])porTerr[r.territorio]=[];
+    porTerr[r.territorio].push(r);
+  });
+
+  var h='';
+  Object.keys(porTerr).sort().forEach(function(terr){
+    var terrRows=porTerr[terr], tf=terrRows.reduce(function(s,r){return s+evidencias(r).fotos},0);
+    h+='<div class="drive-terr"><div class="drive-terr-head"><div class="drive-terr-title">📁 '+esc(terr)+'</div><div class="drive-terr-meta">'+terrRows.filter(temEvidencia).length+' turma(s) com evidência · '+tf+' foto(s)</div></div>';
+    h+='<div class="drive-comp"><div class="drive-grid">';
+    terrRows.forEach(function(r){
+      var e=evidencias(r), links=linksEvidencia(r), tem=temEvidencia(r), f=faltantes(r);
+      h+='<div class="drive-card '+(tem?'photos':'pending')+'">';
+      h+='<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div class="drive-card-title">'+esc(r.turma||'-')+' — '+esc(r.modalidade||'-')+'</div><span class="badge '+bcl(r.status)+'">'+esc(r.status||'Pendente')+'</span></div>';
+      h+='<div class="drive-card-meta">'+esc(r.diasSemana||'-')+' • '+esc(r.horario||'-')+'<br>Total localizado: <strong>'+e.totalArquivos+'</strong> arquivo(s)</div>';
+      h+='<div class="drive-chips">';
+      h+='<span class="evchip '+(e.fotos>0?'photo':'')+'">📷 '+e.fotos+' foto(s)</span>';
+      h+='<span class="evchip doc">🎥 '+e.audiovisual+' vídeo(s)</span>';
+      h+='<span class="evchip doc">📋 '+e.folhaPonto+' folha(s) de ponto</span>';
+      h+='</div>';
+
+      if(!tem){
+        h+='<div class="drive-alert">⚠ Nenhuma evidência localizada. Fotos, folha de ponto/presença, ficha de inscrição, diário de classe e audiovisual permanecem pendentes conforme a estrutura.</div>';
+      }else if(f.length){
+        h+='<div class="drive-alert">⚠ Faltando: '+esc(f.join(' • '))+'</div>';
+      }
+
+      h+='<div class="drive-actions">';
+      if(e.fotos>0 && links.fotos){
+        h+='<a class="drive-open photo" href="'+esc(links.fotos)+'" target="_blank" rel="noopener noreferrer">Abrir fotos — '+e.fotos+' arquivo(s)</a>';
+      }
+      if(e.audiovisual>0 && links.videos){
+        h+='<a class="drive-open video" href="'+esc(links.videos)+'" target="_blank" rel="noopener noreferrer">Abrir vídeos — '+e.audiovisual+' arquivo(s)</a>';
+      }
+      if(tem && !links.fotos && !links.videos){
+        h+='<div class="drive-nolink">Evidência localizada, mas o link específico da pasta ainda não foi auditado para liberação neste índice.</div>';
+      }
+      if(!tem){
+        h+='<div class="drive-nolink">Sem botão: nenhuma evidência localizada nesta turma.</div>';
+      }
+      h+='</div></div>';
+    });
+    h+='</div></div></div>';
+  });
+  el.innerHTML=h;
+}
+
 function renderEstrutura(){
   var h='';
   TERR.forEach(function(terr){
     var rows=atividadesTerritorio(terr),ini=rows.filter(temEvidencia).length;
-    h+='<div class="folder-terr"><div class="folder-head"><div>📁 '+esc(terr)+'</div><span>'+ini+' turma(s) com evidência</span></div><div class="comp-wrap"><div class="turma-grid">';
+    var totalFotos=rows.reduce(function(s,r){return s+Number(evidencias(r).fotos||0)},0);
+    h+='<div class="folder-terr"><div class="folder-head"><div>📁 '+esc(terr)+'</div><span>'+ini+' turma(s) com evidência • '+totalFotos+' foto(s)</span></div><div class="comp-wrap"><div class="turma-grid">';
     rows.forEach(function(r){
-      var e=evidencias(r);
+      var e=evidencias(r), f=faltantes(r), tem=temEvidencia(r);
       h+='<div class="turma-folder"><h4>📁 '+esc(r.turma||'-')+' — '+esc(r.modalidade||'-')+'</h4>'+
-        '<div class="evline"><strong>01_FICHA_DE_INSCRICAO</strong>: '+Number(e.fichaInscricao||0)+' arquivo(s)</div>'+
-        '<div class="evline"><strong>02_DIARIO_DE_CLASSE</strong>: '+Number(e.diarioClasse||0)+' arquivo(s)</div>'+
-        '<div class="evline"><strong>03_FOLHA_DE_PONTO</strong>: '+Number(e.folhaPonto||0)+' arquivo(s)</div>'+
-        '<div class="evline"><strong>04_REGISTROS_FOTOGRAFICOS</strong>: '+Number(e.fotos||0)+' arquivo(s)</div>'+
-        '<div class="evline"><strong>05_REGISTROS_AUDIOVISUAIS</strong>: '+Number(e.audiovisual||0)+' arquivo(s)</div>'+
-        '<div style="margin-top:7px"><span class="badge '+bcl(r.status)+'">'+esc(r.status||'Pendente')+'</span></div></div>';
+        '<div class="evline"><strong>01_FICHA_DE_INSCRICAO</strong>: '+e.fichaInscricao+' arquivo(s)</div>'+
+        '<div class="evline"><strong>02_DIARIO_DE_CLASSE</strong>: '+e.diarioClasse+' arquivo(s)</div>'+
+        '<div class="evline"><strong>03_FOLHA_DE_PONTO</strong>: '+e.folhaPonto+' arquivo(s)</div>'+
+        '<div class="evline"><strong>04_REGISTROS_FOTOGRAFICOS</strong>: <span class="evid-photo-num">'+e.fotos+' arquivo(s)</span></div>'+
+        '<div class="evline"><strong>05_REGISTROS_AUDIOVISUAIS</strong>: '+e.audiovisual+' arquivo(s)</div>'+
+        '<div class="ev-total">Total localizado: <strong>'+e.totalArquivos+'</strong> arquivo(s)</div>';
+      if(!tem) h+='<div class="ev-missing">⚠ Nenhuma evidência localizada nesta turma.</div>';
+      else if(f.length) h+='<div class="ev-missing">⚠ Faltando: '+esc(f.join(' • '))+'</div>';
+      h+='<div style="margin-top:7px"><span class="badge '+bcl(r.status)+'">'+esc(r.status||'Pendente')+'</span></div></div>';
     });
     h+='</div></div></div>';
   });
