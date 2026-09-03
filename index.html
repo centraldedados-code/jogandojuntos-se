@@ -493,7 +493,6 @@ function chkPwd(){
   var v=document.getElementById('pf').value;
   if(v===SENHA){
     document.getElementById('pwd').classList.add('off');
-    sessionStorage.setItem('jjse_ok','1');
     carregarApp();
   }else{
     document.getElementById('perr').textContent='Senha incorreta. Verifique com a coordenação.';
@@ -975,12 +974,13 @@ function renderFooter(){
 }
 
 window.addEventListener('DOMContentLoaded',function(){
-  if(sessionStorage.getItem('jjse_ok')==='1'){
-    document.getElementById('pwd').classList.add('off');
-    carregarApp();
-  }else{
-    setTimeout(function(){var f=document.getElementById('pf');if(f)f.focus()},100);
-  }
+  // A senha deve ser solicitada em todo novo carregamento do índice.
+  try{sessionStorage.removeItem('jjse_ok');}catch(e){}
+  var pwd=document.getElementById('pwd');
+  var app=document.getElementById('app');
+  if(pwd)pwd.classList.remove('off');
+  if(app)app.classList.remove('on');
+  setTimeout(function(){var f=document.getElementById('pf');if(f)f.focus()},100);
 });
 </script>
 </body>
