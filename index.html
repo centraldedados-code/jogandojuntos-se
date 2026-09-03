@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jogando Juntos SE | SMPC</title>
+<title>Jogando Juntos SE | SMPC — Index Evidências Drive</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
 
@@ -319,6 +319,10 @@ button{font-family:'Montserrat',Arial,sans-serif}
       </div>
     </div>
     <div class="diag-note">Os dados do painel continuam sendo atualizados pela API do SMPC. Para as pastas de evidência já auditadas nesta estrutura, o índice usa atalhos diretos para o local exato onde os arquivos estão organizados.</div>
+    <div class="notice" style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div><strong>Portal do Produtor</strong><br>Envio operacional de evidências pelos responsáveis dos núcleos.</div>
+      <a class="diag-portal" style="margin-top:0" href="https://script.google.com/macros/s/AKfycbywEDgZHLvrWoq4nWOlhnpx79Q0Q_1Pk24RHn8r043bsImmRZPdOkSW1yCZ6CDIDACX5g/exec" target="_blank" rel="noopener noreferrer">Abrir Portal do Produtor</a>
+    </div>
 
     <div class="st">Pendências Documentais Prioritárias</div>
     <div id="alertas-documentais"></div>
@@ -394,7 +398,7 @@ button{font-family:'Montserrat',Arial,sans-serif}
 
     <div class="st">Filtros de Evidência</div>
     <div class="filters">
-      <button class="fbtn on" data-evf="TODAS" onclick="setFiltroEvidencias('TODAS',this)">Todas as turmas</button>
+      <button class="fbtn on" data-evf="COM_EVIDENCIA" onclick="setFiltroEvidencias('COM_EVIDENCIA',this)">Todas com evidência</button>
       <button class="fbtn" data-evf="FOTOS" onclick="setFiltroEvidencias('FOTOS',this)">Com fotos</button>
       <button class="fbtn" data-evf="VIDEOS" onclick="setFiltroEvidencias('VIDEOS',this)">Com vídeos</button>
       <button class="fbtn" data-evf="PENDENCIAS" onclick="setFiltroEvidencias('PENDENCIAS',this)">Sem evidência</button>
@@ -403,7 +407,7 @@ button{font-family:'Montserrat',Arial,sans-serif}
     </div>
 
     <div class="notice" style="margin-bottom:14px">
-      Os botões <strong>ABRIR FOTOS</strong> e <strong>ABRIR VÍDEOS</strong> aparecem somente quando existe evidência auditada naquela pasta. Quando nenhum arquivo foi localizado, o cartão mostra <strong>ALERTA DE PENDÊNCIA</strong> e nenhum link é liberado.
+      Como no Prospera Turismo, esta área mostra por padrão somente as turmas com evidência. O botão <strong>ABRIR EVIDÊNCIAS DA ATIVIDADE</strong> leva diretamente à pasta real onde a comprovação foi localizada; quando há foto e vídeo em pastas distintas, os dois acessos são exibidos. Use <strong>SEM EVIDÊNCIA</strong> para visualizar os alertas das turmas ainda pendentes.
     </div>
     <div id="drive-evidencias-content"></div>
   </section>
@@ -436,7 +440,7 @@ var PORTAL_PRODUTOR_URL = 'https://script.google.com/macros/s/AKfycbywEDgZHLvrWo
 var D = null;
 var TERR = [];
 var FILTRO_STATUS = 'Todos';
-var FILTRO_EVIDENCIAS = 'TODAS';
+var FILTRO_EVIDENCIAS = 'COM_EVIDENCIA';
 
 /*
  * Pastas de evidência confirmadas por auditoria no Google Drive em 03/09/2026.
@@ -445,30 +449,36 @@ var FILTRO_EVIDENCIAS = 'TODAS';
 var EVIDENCIAS_AUDITADAS = {
   'T1-04_FUTEBOL': {
     fotos: 16,
+    linkTurma: 'https://drive.google.com/drive/folders/1MsdXzBt-_IVbhkvDDrhPDy03m2LIHwFL',
     linkFotos: 'https://drive.google.com/drive/folders/1JXK8hYfQqd6CU4RrVbd9Sa-DIWuFMC6C'
   },
   'T1-09_GINASTICA': {
     fotos: 1,
     audiovisual: 1,
+    linkTurma: 'https://drive.google.com/drive/folders/1uDv4FijxWXt1adCW16EeuJZw6WdzkEdg',
     linkFotos: 'https://drive.google.com/drive/folders/1vpg2naABm3_EYfhkOoE5cC5ehrlr3B4F',
     linkVideos: 'https://drive.google.com/drive/folders/1qH6GjhRxRnJ_XXgos4HSOlsWyVYH9eZA'
   },
   'T1-11_LUTA': {
     fotos: 25,
     audiovisual: 5,
+    linkTurma: 'https://drive.google.com/drive/folders/1xCd6Sy7QjgnhZhgfb8ve181mPLLYpT_a',
     linkFotos: 'https://drive.google.com/drive/folders/1Ozs-Y2h8DYA-1KYFWyBCz3TvzEQ2SNz6',
     linkVideos: 'https://drive.google.com/drive/folders/1ZcwuzucGk2tZvNOQs1t03AbwcW7Uh1rF'
   },
   'T2-04_FUTEBOL': {
     fotos: 6,
+    linkTurma: 'https://drive.google.com/drive/folders/1LE-mVYg7KIL6QhB26C1vMgg-IlsBxML9',
     linkFotos: 'https://drive.google.com/drive/folders/16BgE4-h7t4Mm75vXiHQkRv0MWjmmA99l'
   },
   'T2-11_LUTA': {
     fotos: 11,
+    linkTurma: 'https://drive.google.com/drive/folders/1sELRIPkmEd8fHjqO3-cmuOajTQiNT8XV',
     linkFotos: 'https://drive.google.com/drive/folders/1F4U4zhcIZv4iFJb4Eh_7gHM2x3X8Fy3y'
   },
   'T2-12_GINASTICA': {
     fotos: 3,
+    linkTurma: 'https://drive.google.com/drive/folders/1Re5KfoWSFrysdKzyX7Y2CmxYlg1dwYXq',
     linkFotos: 'https://drive.google.com/drive/folders/1lzGLJgSypQCSYTuSBela7YrJN2SIheC1'
   }
 };
@@ -817,7 +827,8 @@ function linksEvidencia(r){
   var a=evidenciaAuditada(r);
   return {
     fotos:String(a.linkFotos||''),
-    videos:String(a.linkVideos||'')
+    videos:String(a.linkVideos||''),
+    turma:String(a.linkTurma||'')
   };
 }
 
@@ -833,6 +844,7 @@ function renderEvidenciasDrive(){
   var rows=base.filter(function(r){
     var e=evidencias(r);
     if(terrSel && r.territorio!==terrSel)return false;
+    if(FILTRO_EVIDENCIAS==='COM_EVIDENCIA' && !temEvidencia(r))return false;
     if(FILTRO_EVIDENCIAS==='FOTOS' && e.fotos<=0)return false;
     if(FILTRO_EVIDENCIAS==='VIDEOS' && e.audiovisual<=0)return false;
     if(FILTRO_EVIDENCIAS==='PENDENCIAS' && temEvidencia(r))return false;
@@ -887,11 +899,18 @@ function renderEvidenciasDrive(){
       }
 
       h+='<div class="drive-actions">';
-      if(e.fotos>0 && links.fotos){
-        h+='<a class="drive-open photo" href="'+esc(links.fotos)+'" target="_blank" rel="noopener noreferrer">Abrir fotos — '+e.fotos+' arquivo(s)</a>';
+      if(e.fotos>0 && links.fotos && !(e.audiovisual>0 && links.videos)){
+        h+='<a class="drive-open photo" href="'+esc(links.fotos)+'" target="_blank" rel="noopener noreferrer">Abrir evidências da atividade</a>';
+      }else{
+        if(e.fotos>0 && links.fotos){
+          h+='<a class="drive-open photo" href="'+esc(links.fotos)+'" target="_blank" rel="noopener noreferrer">Abrir fotos — '+e.fotos+' arquivo(s)</a>';
+        }
+        if(e.audiovisual>0 && links.videos){
+          h+='<a class="drive-open video" href="'+esc(links.videos)+'" target="_blank" rel="noopener noreferrer">Abrir vídeos — '+e.audiovisual+' arquivo(s)</a>';
+        }
       }
-      if(e.audiovisual>0 && links.videos){
-        h+='<a class="drive-open video" href="'+esc(links.videos)+'" target="_blank" rel="noopener noreferrer">Abrir vídeos — '+e.audiovisual+' arquivo(s)</a>';
+      if(tem && links.turma){
+        h+='<a class="drive-open secondary" href="'+esc(links.turma)+'" target="_blank" rel="noopener noreferrer">Ver turma completa</a>';
       }
       if(tem && !links.fotos && !links.videos){
         h+='<div class="drive-nolink">Evidência localizada, mas o link específico da pasta ainda não foi auditado para liberação neste índice.</div>';
