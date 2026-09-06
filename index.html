@@ -247,6 +247,48 @@ button{font-family:'Montserrat',Arial,sans-serif}
 @media(max-width:950px){.turma-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.turma-grid{grid-template-columns:1fr}}
 
+
+
+/* CARDS DIDÁTICOS — SOMENTE ATIVIDADES E METAS */
+.activity-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.activity-card{background:#fff;border:1.5px solid var(--bd);border-left:4px solid var(--ci);border-radius:14px;padding:16px 17px;min-height:250px;display:flex;flex-direction:column}
+.activity-card.st-completo{border-left-color:var(--gv)}
+.activity-card.st-insuficiente{border-left-color:#c9940a}
+.activity-card.st-alerta{border-left-color:#E07B00}
+.activity-card.st-erro{border-left-color:#cc2222}
+.activity-card.st-pendente{border-left-color:#aab2bd}
+.activity-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.activity-card-kicker{font:700 9.5px Montserrat;color:var(--ci);text-transform:uppercase;letter-spacing:.55px;margin-bottom:4px}
+.activity-card-title{font:700 13px Montserrat;color:var(--az);line-height:1.4}
+.activity-card-sub{font-size:10.5px;color:#68717d;line-height:1.45;margin-top:4px}
+.activity-card-evidence{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px}
+.activity-evidence-item{background:#f6f8fb;border:1px solid #e4e9ef;border-radius:9px;padding:8px 6px;text-align:center}
+.activity-evidence-item .n{font:700 16px Montserrat;color:var(--az)}
+.activity-evidence-item .l{font-size:8.5px;color:#75808c;text-transform:uppercase;letter-spacing:.25px;margin-top:2px;line-height:1.25}
+.activity-card-total{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:10px;padding:9px 10px;border-radius:9px;background:#eaf8fb;font-size:10.5px;color:#176377}
+.activity-card-reading{margin-top:10px;border-left:3px solid var(--ci);background:#f7fafc;border-radius:8px;padding:9px 10px;font-size:10.5px;color:#596575;line-height:1.5}
+.activity-card-reading strong{color:var(--az)}
+
+.meta-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.meta-card{background:#fff;border:1.5px solid var(--bd);border-radius:14px;padding:18px;display:flex;flex-direction:column;min-height:300px}
+.meta-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.meta-card-id{font:700 10px Montserrat;color:var(--ci);text-transform:uppercase;letter-spacing:.55px;margin-bottom:5px}
+.meta-card-title{font:700 13px Montserrat;color:var(--az);line-height:1.45}
+.meta-card-context{font-size:10.5px;color:#75808c;line-height:1.45;margin-top:5px}
+.meta-card-numbers{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:13px}
+.meta-number{background:#f6f8fb;border:1px solid #e1e7ee;border-radius:10px;padding:10px 11px}
+.meta-number .l{font:700 9px Montserrat;color:#7b8795;text-transform:uppercase;letter-spacing:.4px}
+.meta-number .n{font:700 20px Montserrat;color:var(--az);margin-top:3px}
+.meta-number.real .n{color:var(--ci)}
+.meta-reading{margin-top:11px;border-left:3px solid var(--ci);background:#f7fafc;border-radius:8px;padding:10px 11px;font-size:10.5px;color:#596575;line-height:1.5}
+.meta-reading strong{color:var(--az)}
+.meta-indicator{font-size:10px;color:#68717d;line-height:1.45;margin-top:10px}
+.meta-progress{margin-top:auto;padding-top:12px}
+.meta-progress-line{display:flex;justify-content:space-between;gap:10px;font-size:9.5px;color:#69737e;margin-bottom:5px}
+
+@media(max-width:950px){.activity-card-grid,.meta-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.activity-card-evidence{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.activity-card-grid,.meta-card-grid{grid-template-columns:1fr}.activity-card-evidence{grid-template-columns:repeat(2,1fr)}}
+
 /* Compatibilidade com o carregamento do índice JJSE */
 #ld{display:none} #ld.on{display:flex}
 </style>
@@ -792,15 +834,50 @@ function renderAtividades(){
     var hay=[r.territorio,r.turma,r.modalidade].join(' ').toLowerCase();
     return ok&&(!busca||hay.indexOf(busca)>=0);
   });
-  var h='<div class="tblwrap"><table class="tbl"><tr><th>Território</th><th>Turma</th><th>Modalidade</th><th>Status</th><th>Ficha</th><th>Diário</th><th>Folha</th><th>Fotos</th><th>Vídeos</th><th>Total</th></tr>';
+
+  if(!rows.length){
+    document.getElementById('tbl-atividades').innerHTML='<div class="card" style="color:#66717d;font-size:12px">Nenhuma atividade encontrada para este filtro.</div>';
+    return;
+  }
+
+  function classeCard(st){
+    st=String(st||'Pendente');
+    if(st==='Completo')return'st-completo';
+    if(st==='Insuficiente')return'st-insuficiente';
+    if(st.indexOf('Alerta')===0)return'st-alerta';
+    if(st.indexOf('Erro')===0)return'st-erro';
+    return'st-pendente';
+  }
+  function leituraAtividade(r,e,f){
+    if(String(r.status||'')==='Completo')return 'Composição documental considerada completa para esta atividade.';
+    if(!temEvidencia(r))return 'Ainda não há evidências localizadas para esta turma.';
+    if(f.length)return 'Há evidências localizadas, mas ainda faltam: '+f.join(', ')+'.';
+    return 'Há registros localizados e a atividade segue em acompanhamento documental.';
+  }
+
+  var h='<div class="activity-card-grid">';
   rows.forEach(function(r){
-    var e=evidencias(r);
-    h+='<tr><td><strong>'+esc(r.territorio||'-')+'</strong></td><td>'+esc(r.turma||'-')+'</td><td>'+esc(r.modalidade||'-')+'</td>'+
-      '<td><span class="badge '+bcl(r.status)+'">'+esc(r.status||'Pendente')+'</span></td>'+
-      '<td>'+Number(e.fichaInscricao||0)+'</td><td>'+Number(e.diarioClasse||0)+'</td><td>'+Number(e.folhaPonto||0)+'</td>'+
-      '<td>'+Number(e.fotos||0)+'</td><td>'+Number(e.audiovisual||0)+'</td><td><strong>'+Number(e.totalArquivos||0)+'</strong></td></tr>';
+    var e=evidencias(r),f=faltantes(r),total=Number(e.totalArquivos||0);
+    h+='<article class="activity-card '+classeCard(r.status)+'">'+
+      '<div class="activity-card-head"><div><div class="activity-card-kicker">'+esc(r.territorio||'Território não informado')+'</div>'+
+      '<div class="activity-card-title">'+esc(r.turma||'-')+'</div>'+
+      '<div class="activity-card-sub">'+esc(r.modalidade||'Modalidade não informada')+(r.diasSemana?' • '+esc(r.diasSemana):'')+(r.horario?' • '+esc(r.horario):'')+'</div></div>'+
+      '<span class="badge '+bcl(r.status)+'">'+esc(r.status||'Pendente')+'</span></div>'+
+      '<div class="activity-card-evidence">'+
+        '<div class="activity-evidence-item"><div class="n">'+Number(e.fichaInscricao||0)+'</div><div class="l">Ficha</div></div>'+
+        '<div class="activity-evidence-item"><div class="n">'+Number(e.diarioClasse||0)+'</div><div class="l">Diário</div></div>'+
+        '<div class="activity-evidence-item"><div class="n">'+Number(e.folhaPonto||0)+'</div><div class="l">Folha / Presença</div></div>'+
+        '<div class="activity-evidence-item"><div class="n">'+Number(e.fotos||0)+'</div><div class="l">Fotos</div></div>'+
+        '<div class="activity-evidence-item"><div class="n">'+Number(e.audiovisual||0)+'</div><div class="l">Vídeos</div></div>'+
+      '</div>'+
+      '<div class="activity-card-total"><span>Total de evidências localizadas</span><strong>'+total+'</strong></div>'+
+      '<div class="activity-card-reading"><strong>Leitura do Agente</strong><br>'+esc(leituraAtividade(r,e,f))+'</div>';
+    if(Number(e.fotosDuplicadas||0)>0){
+      h+='<div class="ev-missing" style="margin-top:9px">Atenção: '+Number(e.fotosDuplicadas||0)+' foto(s) duplicada(s).</div>';
+    }
+    h+='</article>';
   });
-  h+='</table></div>';
+  h+='</div>';
   document.getElementById('tbl-atividades').innerHTML=h;
 }
 
@@ -958,13 +1035,58 @@ function renderMetas(fTerr){
   document.getElementById('flt-metas').innerHTML=fb;
 
   var rows=fTerr==='Todos'?MT():MT().filter(function(m){return m.territorio===fTerr||m.abrangencia===fTerr});
-  var h='<div class="tblwrap"><table class="tbl"><tr><th>ID</th><th>Meta</th><th>Abrangência</th><th>Território</th><th>Previsto Projeto</th><th>Previsto Território</th><th>Realizado</th><th>Status</th></tr>';
+  if(!rows.length){
+    document.getElementById('tbl-metas').innerHTML='<div class="card" style="color:#66717d;font-size:12px">Nenhuma meta encontrada para este filtro.</div>';
+    return;
+  }
+
+  function numMeta(v){
+    var n=Number(String(v==null?'':v).replace(/\./g,'').replace(',','.'));
+    return isNaN(n)?0:n;
+  }
+  function statusMetaClasse(st){
+    st=String(st||'').toLowerCase();
+    if(st.indexOf('cumpr')>=0||st.indexOf('complet')>=0)return'bCo';
+    if(st.indexOf('andamento')>=0||st.indexOf('execu')>=0)return'bAn';
+    if(st.indexOf('alerta')>=0||st.indexOf('erro')>=0)return'bEr';
+    return'bPe';
+  }
+  function leituraMeta(real,prev,st){
+    if(prev>0&&real>=prev)return 'Meta atingida conforme o quantitativo registrado no acompanhamento.';
+    if(real>0)return 'A meta possui realização registrada e segue em acompanhamento.';
+    if(String(st||'').toLowerCase().indexOf('andamento')>=0)return 'A meta está em acompanhamento, mas ainda não possui quantitativo realizado registrado.';
+    return 'Ainda não há quantidade realizada registrada para esta meta.';
+  }
+
+  var h='<div class="meta-card-grid">';
   rows.forEach(function(m){
-    h+='<tr><td><strong>'+esc(m.id||'-')+'</strong></td><td>'+esc(m.descricao||'-')+'</td><td>'+esc(m.abrangencia||'-')+'</td>'+
-      '<td>'+esc(m.territorio||'-')+'</td><td>'+esc(m.previstoTotal||'-')+'</td><td>'+esc(m.previstoTerritorio||'-')+'</td>'+
-      '<td>'+esc(m.realizado||0)+'</td><td><span class="badge '+(String(m.status||'').toLowerCase().indexOf('cumpr')>=0?'bCo':String(m.status||'').toLowerCase().indexOf('andamento')>=0?'bAn':'bPe')+'">'+esc(m.status||'-')+'</span></td></tr>';
+    var previstoProjeto=numMeta(m.previstoTotal),previstoTerr=numMeta(m.previstoTerritorio),realizado=numMeta(m.realizado);
+    var previstoBase=(String(m.abrangencia||'').toLowerCase().indexOf('projeto')>=0||String(m.territorio||'').toLowerCase().indexOf('projeto')>=0)?previstoProjeto:(previstoTerr||previstoProjeto);
+    var pct=previstoBase>0?Math.min(100,Math.round(realizado/previstoBase*100)):0;
+    var titulo=String(m.descricao||'').trim()||'Meta sem descrição informada';
+    var contexto=[];
+    if(m.abrangencia)contexto.push(m.abrangencia);
+    if(m.territorio&&m.territorio!==m.abrangencia)contexto.push(m.territorio);
+
+    h+='<article class="meta-card">'+
+      '<div class="meta-card-head"><div><div class="meta-card-id">'+esc(m.id||'Meta')+'</div><div class="meta-card-title">'+esc(titulo)+'</div>'+
+      '<div class="meta-card-context">'+esc(contexto.join(' • ')||'Abrangência não informada')+'</div></div>'+
+      '<span class="badge '+statusMetaClasse(m.status)+'">'+esc(m.status||'Não iniciado')+'</span></div>'+
+      '<div class="meta-card-numbers">'+
+        '<div class="meta-number"><div class="l">Previsto no projeto</div><div class="n">'+esc(m.previstoTotal||'0')+'</div></div>'+
+        '<div class="meta-number real"><div class="l">Realizado</div><div class="n">'+esc(m.realizado||'0')+'</div></div>'+
+      '</div>';
+    if(m.previstoTerritorio){
+      h+='<div class="meta-card-context" style="margin-top:9px"><strong style="color:var(--az)">Previsto no território:</strong> '+esc(m.previstoTerritorio)+'</div>';
+    }
+    h+='<div class="meta-reading"><strong>Leitura do Agente</strong><br>'+esc(leituraMeta(realizado,previstoBase,m.status))+'</div>';
+    if(m.indicador){
+      h+='<div class="meta-indicator"><strong style="color:var(--az)">Indicador:</strong> '+esc(m.indicador)+'</div>';
+    }
+    h+='<div class="meta-progress"><div class="meta-progress-line"><span>Progresso físico</span><strong>'+realizado+' de '+previstoBase+' • '+pct+'%</strong></div>'+
+      '<div class="sbw" style="height:9px"><div class="sb '+scl(pct)+'" style="width:'+pct+'%"></div></div></div></article>';
   });
-  h+='</table></div>';
+  h+='</div>';
   document.getElementById('tbl-metas').innerHTML=h;
 }
 
