@@ -546,6 +546,10 @@ var PASTAS_EVIDENCIA = {
   'T2-12_GINASTICA': {ficha:'https://drive.google.com/drive/folders/1E_0mEe7WCK9MSkuNq6g6zTeSQ5uPfjhR',diario:'https://drive.google.com/drive/folders/1QyLfZtBy489GmSDsX_AyzHs8DGGpc6Hx',folha:'https://drive.google.com/drive/folders/1JZDtUlKoBO1WG5IU0leKlJI4WMYKhvf1',fotos:'https://drive.google.com/drive/folders/1HyqjjGaNIKKxzWmmOc70Qgexjg3h9OMv',videos:'https://drive.google.com/drive/folders/1APqKtemjR0FyCkd5RICbJrLK6MUdhCw4'}
 };
 
+
+var PASTAS_TURMA_CONFIRMADAS = {"T2-01_FUTEBOL": "1PJRD3qVC5Sqd1RHHwjwkXPcudzrlPf3R", "T2-02_BASQUETE": "1RUQB4yeCQO_S7FmPwRu9yUZGb0sh-OCD", "T2-03_VOLEI": "1Hfd48092ZA-C8GiOJ4s0cFI_LAwsYpuR", "T2-04_FUTEBOL": "1LE-mVYg7KIL6QhB26C1vMgg-IlsBxML9", "T2-05_BASQUETE": "12DX4kP2SVWKU_C_cRiZVoAwFIAenC_LF", "T2-06_HANDEBOL": "10fzbAInzcuz0ghhd7JcSm672uK1dxsY-", "T2-07_DANCA_DE_SALAO": "1uV_bgaSkz9gnUB-I6TZVlJUxiG0MhaVr", "T2-08_LUTA": "1l1l2kW7CnwVkBs5j_sV8GzNQjWSMTI37", "T2-09_GINASTICA": "1wDX_AGRxLrbL2rs-oxEfS1LIUeJptxpV", "T2-10_DANCA_DE_SALAO": "1GeRuKgFrLi00rRGjmQiPoJE9Fc3CGm5g", "T2-11_LUTA": "1sELRIPkmEd8fHjqO3-cmuOajTQiNT8XV", "T2-12_GINASTICA": "1Re5KfoWSFrysdKzyX7Y2CmxYlg1dwYXq"};
+var PASTAS_T205_CONFIRMADAS = {"ficha": "https://drive.google.com/drive/folders/17VacizDOqgLDGcnLbJuPGkxS6u_gRFgh", "diario": "https://drive.google.com/drive/folders/16nqHN6qTgD8p5WD8kGhVVDwPj_GIJfRN", "folha": "https://drive.google.com/drive/folders/1x2i-DRe4TPuESmB-Gt-cpk-KEfMp_fa3", "fotos": "https://drive.google.com/drive/folders/10iCs_YBME1nIzwUK4Z_ca2tTXS0hXhrz", "videos": "https://drive.google.com/drive/folders/1LkDoaKonw6NmCF7PKY3Xu6zQXTNMIYyw"};
+
 function esc(v){
   return String(v==null?'':v)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -924,7 +928,9 @@ function linksEvidencia(r){
   var a=evidenciaAuditada(r);
   var k=String((r&&r.turma)||'').toUpperCase().replace(/\s+/g,'_')+'_'+String((r&&r.modalidade)||'').toUpperCase().replace(/[^A-Z0-9]+/g,'_').replace(/^_|_$/g,'');
   var p=PASTAS_EVIDENCIA[k]||{};
+  if(k==='T2-05_BASQUETE'){ p=Object.assign({},p,PASTAS_T205_CONFIRMADAS); }
   var turma=String(a.linkTurma||'');
+  if(PASTAS_TURMA_CONFIRMADAS[k]) turma='https://drive.google.com/drive/folders/'+PASTAS_TURMA_CONFIRMADAS[k];
   return {
     ficha:String(p.ficha||turma),
     diario:String(p.diario||turma),
